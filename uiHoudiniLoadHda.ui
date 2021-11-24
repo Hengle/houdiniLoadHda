@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>715</width>
+    <width>708</width>
     <height>777</height>
    </rect>
   </property>
@@ -32,11 +32,37 @@
      </item>
     </layout>
    </item>
-   <item row="3" column="2">
+   <item row="2" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="spacing">
       <number>15</number>
      </property>
+     <item>
+      <widget class="QPushButton" name="pushCheck">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Check Selected</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushUncheck">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Uncheck Selected</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -54,13 +80,13 @@
       <widget class="QPushButton" name="pushLoadHda">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>150</width>
          <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>120</width>
+         <width>1000</width>
          <height>16777215</height>
         </size>
        </property>
@@ -74,10 +100,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="2">
-    <widget class="QTableView" name="tableView"/>
-   </item>
-   <item row="4" column="2">
+   <item row="3" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <property name="spacing">
       <number>15</number>
@@ -115,6 +138,18 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushSavePreset">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>1000</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Save Preset</string>
        </property>
@@ -124,13 +159,13 @@
       <widget class="QPushButton" name="pushLoadPreset">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>150</width>
          <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>120</width>
+         <width>1000</width>
          <height>16777215</height>
         </size>
        </property>
@@ -140,6 +175,31 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item row="1" column="2">
+    <widget class="QTableView" name="listView">
+     <property name="showGrid">
+      <bool>false</bool>
+     </property>
+     <property name="gridStyle">
+      <enum>Qt::SolidLine</enum>
+     </property>
+     <property name="cornerButtonEnabled">
+      <bool>false</bool>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>345</number>
+     </attribute>
+     <attribute name="horizontalHeaderHighlightSections">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderHighlightSections">
+      <bool>false</bool>
+     </attribute>
+    </widget>
    </item>
   </layout>
  </widget>

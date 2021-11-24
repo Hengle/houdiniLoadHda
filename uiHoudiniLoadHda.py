@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'uiHoudiniLoadHdaueoAtS.ui'
+## Form generated from reading UI file 'uiHoudiniLoadHdaWGlyvH.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.0
 ##
@@ -20,7 +20,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(715, 777)
+        Form.resize(708, 777)
         self.gridLayout_2 = QGridLayout(Form)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.verticalLayout = QVBoxLayout()
@@ -46,25 +46,32 @@ class Ui_Form(object):
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setSpacing(15)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.pushCheck = QPushButton(Form)
+        self.pushCheck.setObjectName(u"pushCheck")
+        self.pushCheck.setMinimumSize(QSize(150, 0))
+
+        self.horizontalLayout_2.addWidget(self.pushCheck)
+
+        self.pushUncheck = QPushButton(Form)
+        self.pushUncheck.setObjectName(u"pushUncheck")
+        self.pushUncheck.setMinimumSize(QSize(150, 0))
+
+        self.horizontalLayout_2.addWidget(self.pushUncheck)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
         self.pushLoadHda = QPushButton(Form)
         self.pushLoadHda.setObjectName(u"pushLoadHda")
-        self.pushLoadHda.setMinimumSize(QSize(100, 0))
-        self.pushLoadHda.setMaximumSize(QSize(120, 16777215))
+        self.pushLoadHda.setMinimumSize(QSize(150, 0))
+        self.pushLoadHda.setMaximumSize(QSize(1000, 16777215))
         self.pushLoadHda.setLayoutDirection(Qt.RightToLeft)
 
         self.horizontalLayout_2.addWidget(self.pushLoadHda)
 
 
-        self.gridLayout_2.addLayout(self.horizontalLayout_2, 3, 2, 1, 1)
-
-        self.tableView = QTableView(Form)
-        self.tableView.setObjectName(u"tableView")
-
-        self.gridLayout_2.addWidget(self.tableView, 1, 2, 1, 1)
+        self.gridLayout_2.addLayout(self.horizontalLayout_2, 2, 2, 1, 1)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(15)
@@ -83,18 +90,32 @@ class Ui_Form(object):
 
         self.pushSavePreset = QPushButton(Form)
         self.pushSavePreset.setObjectName(u"pushSavePreset")
+        self.pushSavePreset.setMinimumSize(QSize(150, 0))
+        self.pushSavePreset.setMaximumSize(QSize(1000, 16777215))
 
         self.horizontalLayout_3.addWidget(self.pushSavePreset)
 
         self.pushLoadPreset = QPushButton(Form)
         self.pushLoadPreset.setObjectName(u"pushLoadPreset")
-        self.pushLoadPreset.setMinimumSize(QSize(100, 0))
-        self.pushLoadPreset.setMaximumSize(QSize(120, 16777215))
+        self.pushLoadPreset.setMinimumSize(QSize(150, 0))
+        self.pushLoadPreset.setMaximumSize(QSize(1000, 16777215))
 
         self.horizontalLayout_3.addWidget(self.pushLoadPreset)
 
 
-        self.gridLayout_2.addLayout(self.horizontalLayout_3, 4, 2, 1, 1)
+        self.gridLayout_2.addLayout(self.horizontalLayout_3, 3, 2, 1, 1)
+
+        self.listView = QTableView(Form)
+        self.listView.setObjectName(u"listView")
+        self.listView.setShowGrid(False)
+        self.listView.setGridStyle(Qt.SolidLine)
+        self.listView.setCornerButtonEnabled(False)
+        self.listView.horizontalHeader().setDefaultSectionSize(345)
+        self.listView.horizontalHeader().setHighlightSections(False)
+        self.listView.verticalHeader().setVisible(False)
+        self.listView.verticalHeader().setHighlightSections(False)
+
+        self.gridLayout_2.addWidget(self.listView, 1, 2, 1, 1)
 
 
         self.retranslateUi(Form)
@@ -105,6 +126,8 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label.setText(QCoreApplication.translate("Form", u"Filter", None))
+        self.pushCheck.setText(QCoreApplication.translate("Form", u"Check Selected", None))
+        self.pushUncheck.setText(QCoreApplication.translate("Form", u"Uncheck Selected", None))
         self.pushLoadHda.setText(QCoreApplication.translate("Form", u"Load HDA", None))
         self.comboBox.setItemText(0, QCoreApplication.translate("Form", u"NewPreset", None))
 
