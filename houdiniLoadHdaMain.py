@@ -1,8 +1,13 @@
 import sys, os, glob, platform, json, hou
 
-from PySide2.QtWidgets import *
-from PySide2 import QtCore
-from PySide2 import QtGui
+try:
+    from PySide2.QtWidgets import *
+    from PySide2 import QtCore
+    from PySide2 import QtGui
+except:
+    from Qt.QtWidgets import *
+    from Qt import QtCore
+    from Qt import QtGui
 
 from uiHoudiniLoadhda import Ui_Form
 
@@ -11,6 +16,7 @@ class MainWindow(QWidget, Ui_Form):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
+        self.root = "/media/white/tools/scripts/houdini/houdiniLoadHda/"
         self.readPreset()
         self.initList()
         self.updatePresetList()
@@ -21,18 +27,19 @@ class MainWindow(QWidget, Ui_Form):
         self.pushUncheck.clicked.connect(self.uncheckSelected)
         self.pushLoadHda.clicked.connect(self.installAssets)
         self.pushSavePreset.clicked.connect(self.savePreset)
-        self.pushLoadPreset.clicked.connect(self.loadPreset)
+        #self.pushLoadPreset.clicked.connect(self.loadPreset)
         self.comboBox.currentTextChanged.connect(self.loadPreset)
 
     def closeEvent(self, event):
         self.setParent(None)
+        self.updateCommentsFile()
         #self.close()
         
 
     def initList(self):
         self.model = QtGui.QStandardItemModel(self)
-        root = "/media/white/tools/otls"
-        self.hda_paths = glob.glob(os.path.join(root, "*.hda"))
+        self.root = "/media/white/tools/otls"
+        self.hda_paths = glob.glob(os.path.join(self.root, "*.hda"))
         self.hda_names = [os.path.split(filepath)[1] for filepath in self.hda_paths]
         self.loadedHda = []
         [self.loadedHda.append(os.path.split(path)[1]) for path in hou.hda.loadedFiles()]
@@ -46,13 +53,16 @@ class MainWindow(QWidget, Ui_Form):
             if inHdaFolder:
                 item.setCheckState(QtCore.Qt.CheckState.Checked)
             #definitions = hou.hda.definitionsInFile(self.hda_paths[row])
-            comment_text = "comment"
+            try:
+                comment_text = self.comments["__comments"][file]
+            except KeyError:
+                comment_text = ""
             #for definition in definitions:
             #    comment_text += definition.nodeTypeName()
             
             comment = QtGui.QStandardItem("{}".format(comment_text))
-            
-
+            comment.setEditable(True)
+            item.setEditable(False)
             self.model.invisibleRootItem().appendRow([item, comment])
 
 
@@ -60,10 +70,24 @@ class MainWindow(QWidget, Ui_Form):
         self.proxy = QtCore.QSortFilterProxyModel(self)
         self.proxy.setSourceModel(self.model)
         self.listView.setModel(self.proxy)
+        self.listView.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
         
         #self.listView.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
-        self.listView.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        #self.listView.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
+    def updateCommentsFile(self):
+        comments_list = {}
+        for row, file in enumerate(self.hda_names):
+            index = self.model.index(row,1)
+            proxyIndex = self.proxy.mapFromSource(index)
+            comment = self.model.itemFromIndex(index).text()
+            comments_list[file] = comment
+
+        with open(self.comment_path, 'w') as f:
+
+            self.comments["__comments"] = comments_list
+            jsn = json.dumps(self.comments, indent=4)
+            f.write(jsn)
 
     def filterList(self):
         text = self.lineEditFilter.text()
@@ -99,7 +123,8 @@ class MainWindow(QWidget, Ui_Form):
         selected = selectionModel.selectedIndexes()
         for index in selected:
             srcIndex = self.proxy.mapToSource(index)
-            self.model.itemFromIndex(srcIndex).setCheckState(QtCore.Qt.CheckState.Checked)
+            if index.column() == 0:
+                self.model.itemFromIndex(srcIndex).setCheckState(QtCore.Qt.CheckState.Checked)
 
     def uncheckSelected(self):
         selectionModel = self.listView.selectionModel()
@@ -108,7 +133,9 @@ class MainWindow(QWidget, Ui_Form):
             srcIndex = self.proxy.mapToSource(index)
             self.model.itemFromIndex(srcIndex).setCheckState(QtCore.Qt.CheckState.Unchecked)
     def readPreset(self):
-        self.preset_path = "/media/white/tools/scripts/houdini/houdiniLoadHda/.userpresets"
+        #self.root = "/media/white/tools/scripts/houdini/houdiniLoadHda/"
+        self.comment_path = os.path.join(self.root, ".usercomments")
+        self.preset_path = os.path.join(self.root, ".userpresets")
         try:
             with open(self.preset_path, 'r') as f:
                 try:
@@ -118,6 +145,15 @@ class MainWindow(QWidget, Ui_Form):
         except IOError:
             self.preset = {}
 
+        try:
+            with open(self.comment_path, 'r') as f:
+                try:
+                    self.comments = json.load(f)
+                except ValueError:
+                    self.comments = {}
+        except IOError:
+            self.comments = {}
+
     def updatePresetList(self):
         keys = self.preset.keys()
         self.comboBox.clear()
@@ -125,16 +161,19 @@ class MainWindow(QWidget, Ui_Form):
             self.comboBox.addItem(key)
 
     def loadPreset(self):
-        for row, file in enumerate(self.hda_paths):
-            index = self.model.index(row,0)
-            proxyIndex = self.proxy.mapFromSource(index)
-            item = self.model.itemFromIndex(index)
+        try:
+            for row, file in enumerate(self.hda_paths):
+                index = self.model.index(row,0)
+                proxyIndex = self.proxy.mapFromSource(index)
+                item = self.model.itemFromIndex(index)
 
-            listOfCheckedItems = self.preset[self.comboBox.currentText()]
-            if self.hda_names[row] in listOfCheckedItems:
-                item.setCheckState(QtCore.Qt.CheckState.Checked)
-            else:
-                item.setCheckState(QtCore.Qt.CheckState.Unchecked)
+                listOfCheckedItems = self.preset[self.comboBox.currentText()]
+                if self.hda_names[row] in listOfCheckedItems:
+                    item.setCheckState(QtCore.Qt.CheckState.Checked)
+                else:
+                    item.setCheckState(QtCore.Qt.CheckState.Unchecked)
+        except KeyError:
+            pass
 
     def savePreset(self):
         #preset_path = os.path.join(*[os.environ["HOME"], "houdini18.5", ".houdiniLoadHdaPresets"] )

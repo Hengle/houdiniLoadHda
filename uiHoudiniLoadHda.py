@@ -1,19 +1,26 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'uiHoudiniLoadHdaWGlyvH.ui'
+## Form generated from reading UI file 'uiHoudiniLoadHdafNSnQq.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-
-from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QMetaObject,
-    QObject, QPoint, QRect, QSize, QTime, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
-    QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter,
-    QPixmap, QRadialGradient)
-from PySide2.QtWidgets import *
+try:
+    from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QMetaObject,
+        QObject, QPoint, QRect, QSize, QTime, QUrl, Qt)
+    from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
+        QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter,
+        QPixmap, QRadialGradient)
+    from PySide2.QtWidgets import *
+except:
+    from Qt.QtCore import (QCoreApplication, QDate, QDateTime, QMetaObject,
+        QObject, QPoint, QRect, QSize, QTime, QUrl, Qt)
+    from Qt.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
+        QFontDatabase, QIcon, QKeySequence, QLinearGradient, QPalette, QPainter,
+        QPixmap, QRadialGradient)
+    from Qt.QtWidgets import *
 
 
 class Ui_Form(object):
@@ -79,14 +86,10 @@ class Ui_Form(object):
         self.comboBox = QComboBox(Form)
         self.comboBox.addItem("")
         self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setMinimumSize(QSize(200, 0))
+        self.comboBox.setMinimumSize(QSize(315, 0))
         self.comboBox.setEditable(True)
 
         self.horizontalLayout_3.addWidget(self.comboBox)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_3.addItem(self.horizontalSpacer_2)
 
         self.pushSavePreset = QPushButton(Form)
         self.pushSavePreset.setObjectName(u"pushSavePreset")
@@ -95,12 +98,9 @@ class Ui_Form(object):
 
         self.horizontalLayout_3.addWidget(self.pushSavePreset)
 
-        self.pushLoadPreset = QPushButton(Form)
-        self.pushLoadPreset.setObjectName(u"pushLoadPreset")
-        self.pushLoadPreset.setMinimumSize(QSize(150, 0))
-        self.pushLoadPreset.setMaximumSize(QSize(1000, 16777215))
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout_3.addWidget(self.pushLoadPreset)
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_2)
 
 
         self.gridLayout_2.addLayout(self.horizontalLayout_3, 3, 2, 1, 1)
@@ -110,6 +110,7 @@ class Ui_Form(object):
         self.listView.setShowGrid(False)
         self.listView.setGridStyle(Qt.SolidLine)
         self.listView.setCornerButtonEnabled(False)
+        self.listView.horizontalHeader().setVisible(False)
         self.listView.horizontalHeader().setDefaultSectionSize(345)
         self.listView.horizontalHeader().setHighlightSections(False)
         self.listView.verticalHeader().setVisible(False)
@@ -132,6 +133,5 @@ class Ui_Form(object):
         self.comboBox.setItemText(0, QCoreApplication.translate("Form", u"NewPreset", None))
 
         self.pushSavePreset.setText(QCoreApplication.translate("Form", u"Save Preset", None))
-        self.pushLoadPreset.setText(QCoreApplication.translate("Form", u"Load Preset", None))
     # retranslateUi
 
