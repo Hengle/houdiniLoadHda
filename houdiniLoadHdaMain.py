@@ -9,7 +9,7 @@ except:
     from Qt import QtCore
     from Qt import QtGui
 
-from uiHoudiniLoadhda import Ui_Form
+from uiHoudiniLoadHda import Ui_Form
 
 
 class MainWindow(QWidget, Ui_Form):
@@ -23,12 +23,14 @@ class MainWindow(QWidget, Ui_Form):
         self.loadPreset()
         
         self.lineEditFilter.textChanged.connect(self.filterList)
+        self.checkBoxFilterChecked.stateChanged.connect(self.filterList)
         self.pushCheck.clicked.connect(self.checkSelected)
         self.pushUncheck.clicked.connect(self.uncheckSelected)
         self.pushLoadHda.clicked.connect(self.installAssets)
         self.pushSavePreset.clicked.connect(self.savePreset)
         #self.pushLoadPreset.clicked.connect(self.loadPreset)
         self.comboBox.currentTextChanged.connect(self.loadPreset)
+
 
     def closeEvent(self, event):
         self.setParent(None)
@@ -89,14 +91,45 @@ class MainWindow(QWidget, Ui_Form):
             jsn = json.dumps(self.comments, indent=4)
             f.write(jsn)
 
+    def filterChecked(self):
+        roleCheck = QtCore.Qt.CheckStateRole
+        state = QtCore.Qt.CheckState.Checked
+        nrows = self.proxy.rowCount()
+        start = self.proxy.index(0,0)
+        checkedList = self.proxy.match(start, roleCheck, state, nrows)
+        if self.checkBoxFilterChecked.isChecked():
+            #self.proxy.setFilterRole(QtCore.Qt.checkStateRole)
+
+            for row in range(self.proxy.rowCount()):
+                index = self.proxy.index(row,0)
+                #item = self.proxy.item(row,0)
+                if not index in checkedList:
+                    self.listView.hideRow(row)
+                else:
+                    self.listView.showRow(row)
+        else:
+            for row in range(self.proxy.rowCount()):
+                index = self.proxy.index(row,0)
+                #item = self.model.item(row,0)
+                #if not index in checkedList:
+                #    self.listView.showRow(row)
+                #if not index in checkedList:
+                    #self.listView.hideRow(row)
+                self.listView.showRow(row)
+        
+
     def filterList(self):
         text = self.lineEditFilter.text()
         search = QtCore.QRegExp(    text,
                                     QtCore.Qt.CaseInsensitive,
                                     QtCore.QRegExp.RegExp
                                     )
+        #if not self.checkBoxFilterChecked.isChecked():
+        #    self.filterChecked()
 
+        self.filterChecked()
         self.proxy.setFilterRegExp(search)
+        #if self.checkBoxFilterChecked.isChecked():
 
     def installAssets(self):
         selectionModel = self.listView.selectionModel()

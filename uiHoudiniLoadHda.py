@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'uiHoudiniLoadHdafNSnQq.ui'
+## Form generated from reading UI file 'uiHoudiniLoadHdaCuqupB.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
+
 try:
     from PySide2.QtCore import (QCoreApplication, QDate, QDateTime, QMetaObject,
         QObject, QPoint, QRect, QSize, QTime, QUrl, Qt)
@@ -27,7 +28,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(708, 777)
+        Form.resize(708, 755)
         self.gridLayout_2 = QGridLayout(Form)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.verticalLayout = QVBoxLayout()
@@ -43,6 +44,11 @@ class Ui_Form(object):
         self.lineEditFilter.setObjectName(u"lineEditFilter")
 
         self.horizontalLayout.addWidget(self.lineEditFilter)
+
+        self.checkBoxFilterChecked = QCheckBox(Form)
+        self.checkBoxFilterChecked.setObjectName(u"checkBoxFilterChecked")
+
+        self.horizontalLayout.addWidget(self.checkBoxFilterChecked)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -127,6 +133,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label.setText(QCoreApplication.translate("Form", u"Filter", None))
+        self.checkBoxFilterChecked.setText(QCoreApplication.translate("Form", u"Filter Checked", None))
         self.pushCheck.setText(QCoreApplication.translate("Form", u"Check Selected", None))
         self.pushUncheck.setText(QCoreApplication.translate("Form", u"Uncheck Selected", None))
         self.pushLoadHda.setText(QCoreApplication.translate("Form", u"Load HDA", None))
