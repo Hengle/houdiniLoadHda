@@ -42,6 +42,8 @@ class MainWindow(QWidget, Ui_Form):
         self.model = QtGui.QStandardItemModel(self)
         self.root = "/media/white/tools/otls"
         self.hda_paths = glob.glob(os.path.join(self.root, "*.hda"))
+        self.hda_paths.extend(glob.glob(os.path.join(self.root, "*.otl")))
+        
         self.hda_names = [os.path.split(filepath)[1] for filepath in self.hda_paths]
         self.loadedHda = []
         [self.loadedHda.append(os.path.split(path)[1]) for path in hou.hda.loadedFiles()]
