@@ -20,7 +20,7 @@ class MainWindow(QWidget, Ui_Form):
         self.readPreset()
         self.initList()
         self.updatePresetList()
-        self.loadPreset()
+        #self.loadPreset()
         
         self.lineEditFilter.textChanged.connect(self.filterList)
         self.checkBoxFilterChecked.stateChanged.connect(self.filterList)
@@ -30,6 +30,7 @@ class MainWindow(QWidget, Ui_Form):
         self.pushSavePreset.clicked.connect(self.savePreset)
         #self.pushLoadPreset.clicked.connect(self.loadPreset)
         self.comboBox.currentTextChanged.connect(self.loadPreset)
+        self.comboBox.highlighted.connect(self.loadPreset)
 
 
     def closeEvent(self, event):
@@ -150,7 +151,10 @@ class MainWindow(QWidget, Ui_Form):
                 hdaInstalled = self.hda_names[row] in self.loadedHda
                 if not hdaInstalled:
                     print("Installing HDA {}".format(self.hda_names[row]))
-                    hou.hda.installFile(file)
+                    try:
+                        hou.hda.installFile(file)
+                    except:
+                        pass
 
 
     def checkSelected(self):
